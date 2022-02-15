@@ -52,4 +52,4 @@ class CodeService:
         current_app.logger.debug(f'<find_code_value_by_type_and_code : {code_type} - {code}')
         model: CodeTable = cls._find_model_from_type(code_type)
         current_app.logger.debug('>find_code_value_by_type_and_code')
-        return model.as_dict()
+        return model.find_by_id(code).as_dict()

@@ -14,9 +14,6 @@
 """Base class for code model."""
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declared_attr
-from .db import ma
-from .base_model import BaseModel
-
 
 class CodeTable():  # pylint: disable=too-few-public-methods
     """This class provides base methods for Code Table."""
@@ -28,12 +25,17 @@ class CodeTable():  # pylint: disable=too-few-public-methods
     @declared_attr
     def id(cls):  # pylint:disable=no-self-argument, # noqa: N805
         """Return code."""
-        return Column()
+        return Column(Integer)
 
     @declared_attr
     def name(cls):  # pylint:disable=no-self-argument, # noqa: N805
         """Return code name."""
-        return Column()
+        return Column(String)
+
+    @declared_attr
+    def sort_order(cls):  # pylint:disable=no-self-argument, # noqa: N805
+        """Return sort_order."""
+        return Column(Integer)
 
     @classmethod
     def find_by_id(cls, _id):

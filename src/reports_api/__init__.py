@@ -22,7 +22,7 @@ from flask import Flask
 
 from reports_api import config
 from reports_api.config import _Config
-from reports_api.models import db, ma
+from reports_api.models import db
 from reports_api.utils.auth import jwt
 from reports_api.utils.logging import setup_logging
 from reports_api.utils.run_version import get_run_version
@@ -37,7 +37,6 @@ def create_app(run_mode=os.getenv('FLASK_ENV', 'production')):
     app.config.from_object(config.CONFIGURATION[run_mode])
 
     db.init_app(app)
-    ma.init_app(app)
 
     if run_mode != 'migration':
 

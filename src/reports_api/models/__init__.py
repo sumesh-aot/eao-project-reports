@@ -16,7 +16,7 @@
 from sqlalchemy import event  # noqa: I001
 from sqlalchemy.engine import Engine  # noqa: I001, I003, I004
 
-from .db import db, ma  # noqa: I001
+from .db import db  # noqa: I001
 from .code_table import CodeTable
 from .work_type import WorkType
 from .phase_code import PhaseCode

@@ -13,8 +13,6 @@
 # limitations under the License.
 """Super class to handle all operations related to base model."""
 
-from flask import current_app
-
 from .db import db
 
 

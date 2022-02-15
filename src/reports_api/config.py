@@ -121,7 +121,6 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
         'DATABASE_TEST_URL',
         default=f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{int(DB_PORT)}/{DB_NAME}'
     )
-    print(SQLALCHEMY_DATABASE_URI)
 
     JWT_OIDC_TEST_MODE = True
     # JWT_OIDC_ISSUER = _get_config('JWT_OIDC_TEST_ISSUER')

@@ -13,12 +13,11 @@
 # limitations under the License.
 """Model to handle all operations related to Payment Disbursement status code."""
 
-from marshmallow import fields
 from sqlalchemy import Column, ForeignKey, Integer, Boolean, String
 from sqlalchemy.orm import relationship
 
 from .code_table import CodeTable
-from .db import db, ma
+from .db import db
 
 
 class PhaseCode(db.Model, CodeTable):
