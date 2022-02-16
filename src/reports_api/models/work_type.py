@@ -25,3 +25,10 @@ class WorkType(db.Model, CodeTable):
     __tablename__ = 'work_types'
 
     id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
+    sort_order = Column(Integer())
+
+    def as_dict(self):
+        """Return Json representation."""
+        result = CodeTable.as_dict(self)
+        result['sortOrder'] = self.sort_order
+        return result

@@ -11,19 +11,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Model to handle all operations related to Proponent."""
 
-"""This exports all of the models and schemas used by the application."""
-from sqlalchemy import event  # noqa: I001
-from sqlalchemy.engine import Engine  # noqa: I001, I003, I004
+from xmlrpc.client import Boolean
+from sqlalchemy import Column, Integer, BOOLEAN
 
-from .db import db  # noqa: I001
 from .code_table import CodeTable
-from .work_type import WorkType
-from .phase_code import PhaseCode
-from .ea_act import EAAct
-from .ministry import Ministry
-from .federal_involvement import FederalInvolvement
-from .sector import Sector
-from .sub_sector import SubSector
-from .proponent import Proponent
-from .region import Region
+from .db import db
+
+
+class Proponent(db.Model, CodeTable):
+    """Model class for Proponent."""
+
+    __tablename__ = 'proponents'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
+    is_active = Column(BOOLEAN(),default=False)
+
+    def as_dict(self):
+        result = CodeTable.as_dict(self)
+        result['is_active'] = self.is_active
+        return result
