@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Model to handle all operations related to Payment Disbursement status code."""
+"""Model to handle all operations related to SubSector."""
 
 from sqlalchemy import Column, ForeignKey, Integer, Boolean, String
 from sqlalchemy.orm import relationship
@@ -20,31 +20,20 @@ from .code_table import CodeTable
 from .db import db
 
 
-class PhaseCode(db.Model, CodeTable):
-    """Model class for Phase."""
+class SubSector(db.Model, CodeTable):
+    """Model class for SubSector."""
 
-    __tablename__ = 'phase_codes'
+    __tablename__ = 'sub_sectors'
 
     id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
-
-    work_type_id = Column(ForeignKey('work_types.id'), nullable=False)
-    start_event = Column(String())
-    end_event = Column(String)
-    duration = Column(Integer())
-    legislated = Column(Boolean())
-    sort_order = Column(Integer())
-
-    work_type = relationship('WorkType', foreign_keys=[work_type_id], lazy='select')
+    short_name = Column(String())
+    sector_id = Column(ForeignKey('sectors.id'), nullable=False)
+    sector = relationship('Sector', foreign_keys=[sector_id], lazy='select')
 
     def as_dict(self):
         """Return Json representation."""
-        return {
-            'id': self.id,
-            'name': self.name,
-            'sortOrder': self.sort_order,
-            'startEvent': self.start_event,
-            'endEvent': self.end_event,
-            'duration': self.duration,
-            'legislated': self.legislated,
-            'workType': self.work_type.as_dict()
-        }
+        result = CodeTable.as_dict(self)
+        result['sector_id'] = self.sector_id
+        result['short_name'] = self.short_name
+        result['sector'] = self.sector.as_dict()
+        return result
