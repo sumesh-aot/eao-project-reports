@@ -20,7 +20,6 @@ class CodeTable():  # pylint: disable=too-few-public-methods
 
     id = Column(Integer(), primary_key=True, autoincrement=True)
     name = Column(String(250))
-    sort_order = Column(Integer())
 
     @declared_attr
     def id(cls):  # pylint:disable=no-self-argument, # noqa: N805
@@ -31,11 +30,6 @@ class CodeTable():  # pylint: disable=too-few-public-methods
     def name(cls):  # pylint:disable=no-self-argument, # noqa: N805
         """Return code name."""
         return Column(String)
-
-    @declared_attr
-    def sort_order(cls):  # pylint:disable=no-self-argument, # noqa: N805
-        """Return sort_order."""
-        return Column(Integer)
 
     @classmethod
     def find_by_id(cls, _id):
@@ -53,6 +47,5 @@ class CodeTable():  # pylint: disable=too-few-public-methods
         """Return Json representation."""
         return {
             'id': self.id,
-            'name': self.name,
-            'sortOrder': self.sort_order
+            'name': self.name
         }
