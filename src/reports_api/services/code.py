@@ -29,9 +29,9 @@ class CodeService:
         """Find code values by code type."""
         current_app.logger.debug(f'<find_code_values_by_type : {code_type}')
         model: CodeTable = cls._find_model_from_type(code_type)
-        response = {'codes':[]}
+        response = {code_type: []}
         for row in model.find_all():
-            response['codes'].append(row.as_dict())
+            response[code_type].append(row.as_dict())
 
         current_app.logger.debug('>find_code_values_by_type')
         return response

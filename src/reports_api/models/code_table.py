@@ -14,6 +14,8 @@
 """Base class for code model."""
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declared_attr
+from .db import db
+
 
 class CodeTable():  # pylint: disable=too-few-public-methods
     """This class provides base methods for Code Table."""
@@ -42,6 +44,29 @@ class CodeTable():  # pylint: disable=too-few-public-methods
         """Return all of the code master details."""
         codes = cls.query.all()  # pylint: disable=no-member
         return codes
+
+    @staticmethod
+    def commit():
+        """Commit the session."""
+        db.session.commit()
+
+    def save(self):
+        """Save and commit."""
+        db.session.add(self)
+        db.session.commit()
+        return self
+
+    def update(self, payload: dict):
+        """Update and commit."""
+        for key, value in payload.items():
+            setattr(self, key, value)
+        self.commit()
+        return self
+
+    def delete(self):
+        """Delete and commit."""
+        db.session.delete(self)
+        db.session.commit()
 
     def as_dict(self):
         """Return Json representation."""
