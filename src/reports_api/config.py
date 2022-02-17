@@ -90,7 +90,7 @@ class _Config():  # pylint: disable=too-few-public-methods
     JWT_OIDC_JWKS_URI = _get_config('JWT_OIDC_JWKS_URI', default=None)
     JWT_OIDC_ISSUER = _get_config('JWT_OIDC_ISSUER')
     JWT_OIDC_AUDIENCE = _get_config('JWT_OIDC_AUDIENCE')
-    JWT_OIDC_CLIENT_SECRET = _get_config('JWT_OIDC_CLIENT_SECRET', None)
+    JWT_OIDC_CLIENT_SECRET = _get_config('JWT_OIDC_CLIENT_SECRET', default=None)
     JWT_OIDC_CACHING_ENABLED = _get_config('JWT_OIDC_CACHING_ENABLED', default=False)
     JWT_OIDC_JWKS_CACHE_TIMEOUT = int(_get_config('JWT_OIDC_JWKS_CACHE_TIMEOUT', default=300))
 
