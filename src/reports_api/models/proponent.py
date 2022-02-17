@@ -26,7 +26,7 @@ class Proponent(db.Model, CodeTable):
     __tablename__ = 'proponents'
 
     id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
-    is_active = Column(BOOLEAN(),default=False)
+    is_active = Column(BOOLEAN(), default=False)
 
     def as_dict(self):
         result = CodeTable.as_dict(self)
