@@ -33,7 +33,7 @@ class Projects(Resource):
 
 
 @cors_preflight('GET')
-@API.route('/<int:project_id>', methods=['GET', 'PATCH', 'DELETE', 'OPTIONS'])
+@API.route('/<int:project_id>', methods=['GET', 'PUT', 'DELETE', 'OPTIONS'])
 class Project(Resource):
     """Endpoint resource to manage a project."""
 
@@ -45,7 +45,7 @@ class Project(Resource):
 
     @staticmethod
     @cors.crossdomain(origin='*')
-    def patch(project_id):
+    def put(project_id):
         """Update and return a project."""
         project = ProjectService.update_project(project_id, API.payload)
         return project.as_dict(), HTTPStatus.OK
