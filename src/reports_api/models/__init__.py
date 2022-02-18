@@ -27,3 +27,4 @@ from .sector import Sector
 from .sub_sector import SubSector
 from .proponent import Proponent
 from .region import Region
+from .project import Project
