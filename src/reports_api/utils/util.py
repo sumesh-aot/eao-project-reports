@@ -16,15 +16,6 @@
 
 A simple decorator to add the options method to a Request Class.
 """
-import calendar
-from datetime import datetime, timedelta
-from typing import Dict
-from urllib.parse import parse_qsl
-
-import pytz
-from dateutil.parser import parse
-from dpath import util as dpath_util
-from flask import current_app
 
 
 def cors_preflight(methods: str = 'GET'):
