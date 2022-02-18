@@ -26,6 +26,7 @@ from .code import API as CODES_API
 from .ops import API as OPS_API
 from .apihelper import Api
 from .meta import API as META_API
+from .project import API as PROJECTS_API
 
 __all__ = ('API_BLUEPRINT', 'OPS_BLUEPRINT')
 
@@ -58,3 +59,4 @@ API = Api(
 
 API.add_namespace(META_API, path='/meta')
 API.add_namespace(CODES_API, path='/codes')
+API.add_namespace(PROJECTS_API, path='/projects')

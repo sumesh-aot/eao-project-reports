@@ -47,3 +47,21 @@ class BaseModel(db.Model):
     def find_by_id(cls, identifier: int):
         """Return model by id."""
         return cls.query.get(identifier)
+
+    @classmethod
+    def find_all(cls):
+        """Return all entries."""
+        rows = cls.query.all()  # pylint: disable=no-member
+        return rows
+
+    def update(self, payload: dict):
+        """Update and commit."""
+        for key, value in payload.items():
+            setattr(self, key, value)
+        self.commit()
+        return self
+
+    def delete(self):
+        """Delete and commit."""
+        db.session.delete(self)
+        db.session.commit()

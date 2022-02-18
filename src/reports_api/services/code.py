@@ -30,7 +30,7 @@ class CodeService:
         """Find code values by code type."""
         current_app.logger.debug(f'<find_code_values_by_type : {code_type}')
         model: CodeTable = cls._find_model_from_type(code_type)
-        response = {'codes':[]}
+        response = {'codes': []}
         for row in model.find_all():
             response['codes'].append(row.as_dict())
 

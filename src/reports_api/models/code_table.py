@@ -14,6 +14,8 @@
 """Base class for code model."""
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declared_attr
+from .db import db
+
 
 class CodeTable():  # pylint: disable=too-few-public-methods
     """This class provides base methods for Code Table."""
