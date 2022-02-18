@@ -33,7 +33,6 @@ class SubSector(db.Model, CodeTable):
     def as_dict(self):
         """Return Json representation."""
         result = CodeTable.as_dict(self)
-        result['sector_id'] = self.sector_id
         result['short_name'] = self.short_name
         result['sector'] = self.sector.as_dict()
         return result

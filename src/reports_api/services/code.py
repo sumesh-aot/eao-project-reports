@@ -13,9 +13,10 @@
 # limitations under the License.
 """Service to manage Fee Calculation."""
 
-from flask import current_app
+from flask import current_app,jsonify
 
 from reports_api.models import db, CodeTable
+from reports_api.models.phase_code import PhaseCode
 
 
 class CodeService:
@@ -53,3 +54,14 @@ class CodeService:
         model: CodeTable = cls._find_model_from_type(code_type)
         current_app.logger.debug('>find_code_value_by_type_and_code')
         return model.find_by_id(code).as_dict()
+    
+    @classmethod
+    def find_phase_codes_by_ea_act_and_work_type(
+        cls,
+        _ea_act_id: str,
+        _work_type_id: str
+    ):
+        """Find phase codes by ea_act and work_type"""
+        current_app.logger.debug(f'<find_phase_codes_by_ea_act_and_work_type : {_ea_act_id} - {_work_type_id}')
+        code_table = db.session.query(PhaseCode).filter_by(work_type_id=_work_type_id, ea_act_id=_ea_act_id).all();  # pylint: disable=no-member
+        return jsonify([item.as_dict() for item in code_table])
