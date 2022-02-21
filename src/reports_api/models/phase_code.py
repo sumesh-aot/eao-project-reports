@@ -54,5 +54,5 @@ class PhaseCode(db.Model, CodeTable):
     @classmethod
     def find_by_ea_act_and_work_type(cls, _ea_act_id, _work_type_id):
         """Given a id, this will return code master details."""
-        code_table = db.session.query(PhaseCode).filter_by(work_type_id=_work_type_id).one_or_none()  # pylint: disable=no-member
+        code_table = db.session.query(PhaseCode).filter_by(work_type_id=_work_type_id,ea_act_id=_ea_act_id).all()  # pylint: disable=no-member
         return code_table

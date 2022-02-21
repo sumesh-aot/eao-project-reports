@@ -46,13 +46,3 @@ class Code(Resource):
         """Return all codes based on code_type."""
         return CodeService.find_code_value_by_type_and_code(code_type, code), HTTPStatus.OK
 
-@cors_preflight('GET')
-@API.route('/phase_codes/ea_acts/<int:ea_act_id>/work_types/<int:work_type_id>', methods=['GET','OPTIONS'])
-class PhaseCodes(Resource):
-    """Endpoint resource to return phase_codes"""
-
-    @staticmethod
-    @cors.crossdomain(origin='*')
-    def get(ea_act_id,work_type_id):
-        """Return all phase codes based on ea_act_id and work_type_id."""
-        return CodeService.find_phase_codes_by_ea_act_and_work_type(ea_act_id,work_type_id), HTTPStatus.OK
