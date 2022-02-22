@@ -1,0 +1,74 @@
+# Copyright © 2019 Province of British Columbia
+#
+# Licensed under the Apache License, Version 2.0 (the 'License');
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an 'AS IS' BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Service to manage work form sync with database."""
+
+from flask import current_app
+from collections import defaultdict
+
+from reports_api.utils.helpers import find_model_from_table_name
+
+
+class SyncFormDataService:
+    """Service to sync form data with models."""
+
+    @classmethod
+    def _update_or_create(cls, model_class, data: dict):
+        # if application_id is not None and hasattr(model_class, 'application_id'):
+        #     obj = model_class.query.filter(model_class.application_id==application_id)\
+        #             .filter_by(**data).first()
+        if 'id' in data and data['id']:
+            obj = model_class.find_by_id(data['id'])
+            obj = obj.update(data)
+        else:
+            obj = model_class(**data)
+            obj = obj.save()
+        return obj
+
+    @classmethod
+    def _process_model_data(cls, model_name: str, dataset: dict):
+        result = None
+        model_class = find_model_from_table_name(model_name)
+
+        # TODO: Look into bulk insert/update for collection of items in payload
+        if isinstance(dataset, dict):
+            obj = cls._update_or_create(model_class, dataset)
+            result = obj.as_dict()
+        elif isinstance(dataset, list):
+            result = []
+            for data in dataset:
+                obj = cls._update_or_create(model_class, data)
+                result.append(obj.as_dict())
+        return result
+
+    @classmethod
+    def sync_data(cls, payload: dict):
+        result = {}
+
+        for model_key, dataset in payload.items():
+            if model_key not in result:
+                foreign_keys = {}
+                model_name = model_key
+                if '-' in model_key:
+                    *foreign_key_list, model_name = model_key.split('-')
+                    for foreign_key in foreign_key_list:
+                        if foreign_key not in result:
+                            result[foreign_key] = cls._process_model_data(foreign_key, payload[foreign_key])
+                        foreign_keys[f'{foreign_key[:-1]}_id'] = result[foreign_key]['id']
+            if isinstance(dataset, dict):
+                dataset.update(foreign_keys)
+            elif isinstance(dataset, list):
+                dataset = list(map(lambda x: x.update(foreign_keys), dataset))
+            obj = cls._process_model_data(model_name, dataset)
+            result[model_key] = obj
+        return result
