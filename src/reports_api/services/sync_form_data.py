@@ -36,19 +36,39 @@ class SyncFormDataService:
         return obj
 
     @classmethod
+    def _process_model_data(cls, model_name: str, dataset: dict):
+        result = None
+        model_class = find_model_from_table_name(model_name)
+
+        # TODO: Look into bulk insert/update for collection of items in payload
+        if isinstance(dataset, dict):
+            obj = cls._update_or_create(model_class, dataset)
+            result = obj.as_dict()
+        elif isinstance(dataset, list):
+            result = []
+            for data in dataset:
+                obj = cls._update_or_create(model_class, data)
+                result.append(obj.as_dict())
+        return result
+
+    @classmethod
     def sync_data(cls, payload: dict):
         result = {}
 
-        # TODO: Look into bulk insert/update for collection of items in payload
-
-        for model_name, dataset in payload.items():
-            model_class = find_model_from_table_name(model_name)
+        for model_key, dataset in payload.items():
+            if model_key not in result:
+                foreign_keys = {}
+                model_name = model_key
+                if '-' in model_key:
+                    *foreign_key_list, model_name = model_key.split('-')
+                    for foreign_key in foreign_key_list:
+                        if foreign_key not in result:
+                            result[foreign_key] = cls._process_model_data(foreign_key, payload[foreign_key])
+                        foreign_keys[f'{foreign_key[:-1]}_id'] = result[foreign_key]['id']
             if isinstance(dataset, dict):
-                obj = cls._update_or_create(model_class, dataset)
-                result[model_name] = obj.as_dict()
+                dataset.update(foreign_keys)
             elif isinstance(dataset, list):
-                result[model_name] = []
-                for data in dataset:
-                    obj = cls._update_or_create(model_class, data)
-                    result[model_name].append(obj.as_dict())
+                dataset = list(map(lambda x: x.update(foreign_keys), dataset))
+            obj = cls._process_model_data(model_name, dataset)
+            result[model_key] = obj
         return result
