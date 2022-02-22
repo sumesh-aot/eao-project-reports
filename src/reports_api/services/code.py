@@ -16,6 +16,7 @@
 from flask import current_app
 
 from reports_api.models import db, CodeTable
+from reports_api.utils.helpers import find_model_from_table_name
 
 
 class CodeService:
@@ -28,19 +29,13 @@ class CodeService:
     ):
         """Find code values by code type."""
         current_app.logger.debug(f'<find_code_values_by_type : {code_type}')
-        model: CodeTable = cls._find_model_from_type(code_type)
+        model: CodeTable = find_model_from_table_name(code_type)
         response = {'codes': []}
         for row in model.find_all():
             response['codes'].append(row.as_dict())
 
         current_app.logger.debug('>find_code_values_by_type')
         return response
-
-    @classmethod
-    def _find_model_from_type(cls, code_type):
-        for model_class in db.Model._decl_class_registry.values():  # pylint:disable=protected-access
-            if hasattr(model_class, '__tablename__') and model_class.__tablename__ == code_type:
-                return model_class
 
     @classmethod
     def find_code_value_by_type_and_code(
