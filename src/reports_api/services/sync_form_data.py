@@ -16,6 +16,8 @@
 from flask import current_app
 from collections import defaultdict
 
+from sqlalchemy import column
+
 from reports_api.utils.helpers import find_model_from_table_name
 
 
@@ -24,9 +26,12 @@ class SyncFormDataService:
 
     @classmethod
     def _update_or_create(cls, model_class, data: dict):
-        # if application_id is not None and hasattr(model_class, 'application_id'):
-        #     obj = model_class.query.filter(model_class.application_id==application_id)\
-        #             .filter_by(**data).first()
+        # Get the list of column names for the model
+        mapper = model_class.__mapper__
+        columns = dict(mapper.columns).keys()
+        # set data only if key is in column names and has a valid value
+        # To avoid passing empty strings to integer / float fields
+        data = {k: v for k, v in data.items() if v and k in columns}
         if 'id' in data and data['id']:
             obj = model_class.find_by_id(data['id'])
             obj = obj.update(data)
@@ -40,15 +45,16 @@ class SyncFormDataService:
         result = None
         model_class = find_model_from_table_name(model_name)
 
-        # TODO: Look into bulk insert/update for collection of items in payload
-        if isinstance(dataset, dict):
-            obj = cls._update_or_create(model_class, dataset)
-            result = obj.as_dict()
-        elif isinstance(dataset, list):
-            result = []
-            for data in dataset:
-                obj = cls._update_or_create(model_class, data)
-                result.append(obj.as_dict())
+        if model_class:
+            # TODO: Look into bulk insert/update for collection of items in payload
+            if isinstance(dataset, dict):
+                obj = cls._update_or_create(model_class, dataset)
+                result = obj.as_dict()
+            elif isinstance(dataset, list):
+                result = []
+                for data in dataset:
+                    obj = cls._update_or_create(model_class, data)
+                    result.append(obj.as_dict())
         return result
 
     @classmethod
@@ -70,5 +76,6 @@ class SyncFormDataService:
             elif isinstance(dataset, list):
                 dataset = list(map(lambda x: x.update(foreign_keys), dataset))
             obj = cls._process_model_data(model_name, dataset)
-            result[model_key] = obj
+            if obj:
+                result[model_key] = obj
         return result
