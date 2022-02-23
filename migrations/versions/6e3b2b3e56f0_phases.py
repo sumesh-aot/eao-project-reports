@@ -1,9 +1,7 @@
 """phases
-
 Revision ID: 6e3b2b3e56f0
 Revises: 51ebcf9d0049
 Create Date: 2022-02-14 15:03:53.139327
-
 """
 import sqlalchemy as sa
 from alembic import op

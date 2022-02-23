@@ -20,6 +20,7 @@ All services have 2 defaults sets of endpoints:
  - meta
 That are used to expose operational health information about the service, and meta information.
 """
+from importlib.resources import path
 from flask import Blueprint
 
 from .code import API as CODES_API
@@ -28,6 +29,7 @@ from .apihelper import Api
 from .meta import API as META_API
 from .project import API as PROJECTS_API
 from .sync_form_data import API as SYNC_FORM_DATA_API
+from .phase import API as PHASE_API
 
 __all__ = ('API_BLUEPRINT', 'OPS_BLUEPRINT')
 
@@ -62,3 +64,4 @@ API.add_namespace(META_API, path='/meta')
 API.add_namespace(CODES_API, path='/codes')
 API.add_namespace(PROJECTS_API, path='/projects')
 API.add_namespace(SYNC_FORM_DATA_API, path='/sync-form-data')
+API.add_namespace(PHASE_API, path='/phases')
