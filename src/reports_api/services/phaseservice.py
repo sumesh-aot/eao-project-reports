@@ -25,6 +25,5 @@ class PhaseService():
     ):
         """Find phase codes by ea_act and work_type"""
         current_app.logger.debug(f'<find_phase_codes_by_ea_act_and_work_type : {_ea_act_id} - {_work_type_id}')
-        phase = PhaseCode()
-        code_table = phase.find_by_ea_act_and_work_type(_ea_act_id,_work_type_id)
+        code_table = PhaseCode.find_by_ea_act_and_work_type(_ea_act_id,_work_type_id)
         return jsonify([item.as_dict() for item in code_table])
