@@ -47,12 +47,12 @@ class PhaseCode(db.Model, CodeTable):
         return {
             'id': self.id,
             'name': self.name,
-            'sortOrder': self.sort_order,
+            'sort_order': self.sort_order,
             'start_event': self.start_event,
             'end_event': self.end_event,
             'duration': self.duration,
             'legislated': self.legislated,
-            'workType': self.work_type.as_dict(),
+            'work_type': self.work_type.as_dict(),
             'ea_act': self.ea_act.as_dict(),
             'milestones': [milestone.as_dict() for milestone in self.milestones]
         }

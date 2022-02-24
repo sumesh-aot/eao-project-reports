@@ -30,5 +30,5 @@ class WorkType(db.Model, CodeTable):
     def as_dict(self):
         """Return Json representation."""
         result = CodeTable.as_dict(self)
-        result['sortOrder'] = self.sort_order
+        result['sort_order'] = self.sort_order
         return result
