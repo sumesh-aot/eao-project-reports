@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Service to manage Phase."""
-from flask import current_app,jsonify
+from flask import current_app, jsonify
 from reports_api.models.phase_code import PhaseCode
+from reports_api.dtos.phase_dto import PhaseDTO
+from reports_api.models.milestone import Milestone
+
 
 class PhaseService():
     """Service to manage phases related operations"""
@@ -25,5 +28,5 @@ class PhaseService():
     ):
         """Find phase codes by ea_act and work_type"""
         current_app.logger.debug(f'<find_phase_codes_by_ea_act_and_work_type : {_ea_act_id} - {_work_type_id}')
-        code_table = PhaseCode.find_by_ea_act_and_work_type(_ea_act_id,_work_type_id)
+        code_table = PhaseCode.find_by_ea_act_and_work_type(_ea_act_id, _work_type_id)
         return jsonify([item.as_dict() for item in code_table])
