@@ -28,3 +28,5 @@ from .sub_sector import SubSector
 from .proponent import Proponent
 from .region import Region
 from .project import Project
+from .milestone_type import MilestoneType
+from .milestone import Milestone

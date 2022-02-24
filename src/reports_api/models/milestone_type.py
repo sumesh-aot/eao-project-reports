@@ -11,24 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Model to handle all operations related to Payment Disbursement status code."""
+"""Model to handle all operations related to Milestone Type."""
 
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, String, Integer
 
 from .code_table import CodeTable
 from .db import db
 
-
-class WorkType(db.Model, CodeTable):
-    """Model class for WorkType."""
-
-    __tablename__ = 'work_types'
-
+class MilestoneType(db.Model,CodeTable):
+    """Model class for Milestone Type."""
+    __tablename__ = 'milestone_types'
     id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
-    sort_order = Column(Integer())
-
-    def as_dict(self):
-        """Return Json representation."""
-        result = CodeTable.as_dict(self)
-        result['sort_order'] = self.sort_order
-        return result
+    name = Column(String,nullable=False)
