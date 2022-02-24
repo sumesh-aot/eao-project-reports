@@ -14,7 +14,6 @@
 """Service to manage Phase."""
 from flask import current_app, jsonify
 from reports_api.models.phase_code import PhaseCode
-from reports_api.dtos.phase_dto import PhaseDTO
 from reports_api.models.milestone import Milestone
 
 
