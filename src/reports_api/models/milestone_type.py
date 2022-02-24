@@ -11,22 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Model to handle all operations related to Milestone Type."""
 
-"""This exports all of the models and schemas used by the application."""
-from sqlalchemy import event  # noqa: I001
-from sqlalchemy.engine import Engine  # noqa: I001, I003, I004
+from sqlalchemy import Column, String, Integer
 
-from .db import db  # noqa: I001
 from .code_table import CodeTable
-from .work_type import WorkType
-from .phase_code import PhaseCode
-from .ea_act import EAAct
-from .ministry import Ministry
-from .federal_involvement import FederalInvolvement
-from .sector import Sector
-from .sub_sector import SubSector
-from .proponent import Proponent
-from .region import Region
-from .project import Project
-from .milestone_type import MilestoneType
-from .milestone import Milestone
+from .db import db
+
+class MilestoneType(db.Model,CodeTable):
+    """Model class for Milestone Type."""
+    __tablename__ = 'milestone_types'
+    id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
+    name = Column(String,nullable=False)

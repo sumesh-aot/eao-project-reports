@@ -36,7 +36,11 @@ class PhaseCode(db.Model, CodeTable):
     sort_order = Column(Integer())
 
     work_type = relationship('WorkType', foreign_keys=[work_type_id], lazy='select')
-    ea_act = relationship('EAAct',foreign_keys=[ea_act_id], lazy='select')
+    ea_act = relationship('EAAct', foreign_keys=[ea_act_id], lazy='select')
+
+    milestones = relationship("Milestone",
+                              primaryjoin="PhaseCode.id==Milestone.phase_id",
+                              back_populates="phase")
 
     def as_dict(self):
         """Return Json representation."""
@@ -44,15 +48,18 @@ class PhaseCode(db.Model, CodeTable):
             'id': self.id,
             'name': self.name,
             'sortOrder': self.sort_order,
-            'startEvent': self.start_event,
-            'endEvent': self.end_event,
+            'start_event': self.start_event,
+            'end_event': self.end_event,
             'duration': self.duration,
             'legislated': self.legislated,
             'workType': self.work_type.as_dict(),
-            'ea_act': self.ea_act.as_dict()
+            'ea_act': self.ea_act.as_dict(),
+            'milestones': [milestone.as_dict() for milestone in self.milestones]
         }
+
     @classmethod
     def find_by_ea_act_and_work_type(cls, _ea_act_id, _work_type_id):
         """Given a id, this will return code master details."""
-        code_table = db.session.query(PhaseCode).filter_by(work_type_id=_work_type_id,ea_act_id=_ea_act_id).all()  # pylint: disable=no-member
+        code_table = db.session.query(PhaseCode).filter_by(work_type_id=_work_type_id,
+                                                           ea_act_id=_ea_act_id).all()  # pylint: disable=no-member
         return code_table
