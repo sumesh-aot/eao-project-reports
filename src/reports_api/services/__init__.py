@@ -15,3 +15,4 @@
 
 from .code import CodeService
 from .project import ProjectService
+from .milestone import MilestoneService
