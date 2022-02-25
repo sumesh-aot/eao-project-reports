@@ -51,6 +51,7 @@ class Project(BaseModel):
             'capital_investment': self.capital_investment,
             'epic_guid': self.epic_guid,
             'is_project_closed': self.is_project_closed,
+            'address': self.address,
             'sub_sector_id': self.sub_sector_id,
             'proponent_id': self.proponent_id,
             'region_id_env': self.region_id_env,
