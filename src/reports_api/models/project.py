@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from sqlalchemy import Column, ForeignKey, Integer, Boolean, String, Float
+from sqlalchemy import Column, ForeignKey, Integer, Boolean, String, Float, Text
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
@@ -30,6 +30,7 @@ class Project(BaseModel):
     capital_investment = Column(Float())
     epic_guid = Column(String(), nullable=True, default=None)
     is_project_closed = Column(Boolean(), default=False)
+    address = Column(Text, nullable=True, default=None)
     sub_sector_id = Column(ForeignKey('sub_sectors.id'), nullable=False)
     proponent_id = Column(ForeignKey('proponents.id'), nullable=False)
     region_id_env = Column(ForeignKey('regions.id'), nullable=False)
