@@ -14,26 +14,23 @@
 """Resources for Phase endpoints"""
 
 from http import HTTPStatus
-from flask import current_app
 
 from flask_restx import Namespace, Resource, cors
 
-from reports_api.services.code import CodeService
 from reports_api.services.phaseservice import PhaseService
 from reports_api.utils.util import cors_preflight
-
-from reports_api.models import Project
 
 
 API = Namespace('phases', description='Phases')
 
+
 @cors_preflight('GET')
-@API.route('/ea_acts/<int:ea_act_id>/work_types/<int:work_type_id>', methods=['GET','OPTIONS'])
+@API.route('/ea_acts/<int:ea_act_id>/work_types/<int:work_type_id>', methods=['GET', 'OPTIONS'])
 class PhasesByEaActWorkType(Resource):
     """Endpoint resource to manage phases"""
 
     @staticmethod
     @cors.crossdomain('*')
-    def get(ea_act_id,work_type_id):
+    def get(ea_act_id, work_type_id):
         """Return all phase codes based on ea_act_id and work_type_id."""
-        return PhaseService.find_phase_codes_by_ea_act_and_work_type(ea_act_id,work_type_id), HTTPStatus.OK
+        return PhaseService.find_phase_codes_by_ea_act_and_work_type(ea_act_id, work_type_id), HTTPStatus.OK
