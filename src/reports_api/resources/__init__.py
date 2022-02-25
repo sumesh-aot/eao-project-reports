@@ -30,6 +30,7 @@ from .meta import API as META_API
 from .project import API as PROJECTS_API
 from .sync_form_data import API as SYNC_FORM_DATA_API
 from .phase import API as PHASE_API
+from .milestone import API as MILESTONE_API
 
 __all__ = ('API_BLUEPRINT', 'OPS_BLUEPRINT')
 
@@ -65,3 +66,4 @@ API.add_namespace(CODES_API, path='/codes')
 API.add_namespace(PROJECTS_API, path='/projects')
 API.add_namespace(SYNC_FORM_DATA_API, path='/sync-form-data')
 API.add_namespace(PHASE_API, path='/phases')
+API.add_namespace(MILESTONE_API, path='/milestones')

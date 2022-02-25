@@ -13,6 +13,7 @@
 # limitations under the License.
 """Model to handle all operations related to Milestone."""
 
+from flask import current_app
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from .base_model import BaseModel
@@ -37,6 +38,11 @@ class Milestone(BaseModel):
     def find_by_phase_id(cls, _phase_id):
         """Returns collection of milestone by phaseid"""
         milestones = db.session.query(Milestone).filter_by(phase_id=_phase_id).all()
+        return milestones
+
+    @classmethod
+    def find_non_decision_by_phase_id(cls, _phase_id: int):
+        milestones = cls.query.filter_by(phase_id=_phase_id, is_start_event=False, is_end_event=False).all()
         return milestones
 
     def as_dict(self):
