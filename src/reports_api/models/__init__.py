@@ -30,3 +30,10 @@ from .region import Region
 from .project import Project
 from .milestone_type import MilestoneType
 from .milestone import Milestone
+from .eoa_team import EOATeam
+from .position import Position
+from .role import Role
+from .staff import Staff
+from .staff_work_role import StaffWorkRole
+from .work import Work
+from .work_status import WorkStatus

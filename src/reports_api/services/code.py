@@ -13,7 +13,7 @@
 # limitations under the License.
 """Service to manage Fee Calculation."""
 
-from flask import current_app,jsonify
+from flask import current_app, jsonify
 
 from reports_api.models import db, CodeTable
 from reports_api.utils.helpers import find_model_from_table_name
@@ -46,6 +46,6 @@ class CodeService:
     ):
         """Find code values by code type and code."""
         current_app.logger.debug(f'<find_code_value_by_type_and_code : {code_type} - {code}')
-        model: CodeTable = cls._find_model_from_type(code_type)
+        model: CodeTable = find_model_from_table_name(code_type)
         current_app.logger.debug('>find_code_value_by_type_and_code')
         return model.find_by_id(code).as_dict()
