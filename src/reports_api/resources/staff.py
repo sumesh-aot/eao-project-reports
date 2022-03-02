@@ -37,15 +37,3 @@ class Codes(Resource):
             return StaffService.find_by_position_id(position_id), HTTPStatus.OK
         else:
             return StaffService.find_all(), HTTPStatus.OK
-
-
-# @cors_preflight('GET')
-# @API.route('/<int:pk>', methods=['GET', 'OPTIONS'])
-# class Code(Resource):
-#     """Endpoint resource to return codes."""
-
-#     @staticmethod
-#     @cors.crossdomain(origin='*')
-#     def get(pk):
-#         """Return all codes based on code_type."""
-#         return CodeService.find_code_value_by_type_and_code(code_type, code), HTTPStatus.OK
