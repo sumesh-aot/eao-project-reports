@@ -50,7 +50,7 @@ class Work(BaseModel):
     project_id = Column(ForeignKey('projects.id'), nullable=False)
     ministry_id = Column(ForeignKey('ministries.id'), nullable=False)
     ea_act_id = Column(ForeignKey('ea_acts.id'), nullable=False)
-    eoa_team_id = Column(ForeignKey('eoa_teams.id'), nullable=False)
+    eao_team_id = Column(ForeignKey('eao_teams.id'), nullable=False)
     federal_involvement_id = Column(ForeignKey('federal_involvements.id'), nullable=False)
     responsible_epd_id = Column(ForeignKey('staffs.id'), nullable=False)
     work_lead_id = Column(ForeignKey('staffs.id'), nullable=False)
@@ -58,7 +58,7 @@ class Work(BaseModel):
 
     project = relationship('Project', foreign_keys=[project_id], lazy='select')
     ministry = relationship('Ministry', foreign_keys=[ministry_id], lazy='select')
-    eoa_team = relationship('EOATeam', foreign_keys=[eoa_team_id], lazy='select')
+    eao_team = relationship('EAOTeam', foreign_keys=[eao_team_id], lazy='select')
     ea_act = relationship('EAAct', foreign_keys=[ea_act_id], lazy='select')
     federal_involvement = relationship('FederalInvolvement', foreign_keys=[federal_involvement_id], lazy='select')
     responsible_epd = relationship('Staff', foreign_keys=[responsible_epd_id], lazy='select')

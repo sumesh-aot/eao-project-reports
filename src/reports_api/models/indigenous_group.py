@@ -11,25 +11,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Model to handle all operations related to EOA Team."""
+"""Model to handle all operations related to Indigenous Group."""
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 
 from .code_table import CodeTable
 from .db import db
 
 
-class EOATeam(db.Model, CodeTable):
-    """Model class for EOATeam."""
+class IndigenousGroup(db.Model, CodeTable):
+    """Model class for IndigenousGroup."""
 
-    __tablename__ = 'eoa_teams'
+    __tablename__ = 'indigenous_groups'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(), nullable=False)
+    name = Column(String(255), nullable=False)
+    is_active = Column(Boolean, default=True)
 
     def as_dict(self):
         """Return Json representation."""
         return {
             'id': self.id,
-            'name': self.name
+            'name': self.name,
+            'is_active': self.is_active
         }
+
+    @classmethod
+    def find_all_active_groups(cls):
+        return cls.query.filter_by(is_active=True).all()
