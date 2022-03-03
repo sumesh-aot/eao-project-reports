@@ -32,6 +32,7 @@ from .sync_form_data import API as SYNC_FORM_DATA_API
 from .phase import API as PHASE_API
 from .milestone import API as MILESTONE_API
 from .staff import API as STAFF_API
+from .outcome import API as OUTCOME_API
 
 __all__ = ('API_BLUEPRINT', 'OPS_BLUEPRINT')
 
@@ -69,3 +70,4 @@ API.add_namespace(SYNC_FORM_DATA_API, path='/sync-form-data')
 API.add_namespace(PHASE_API, path='/phases')
 API.add_namespace(MILESTONE_API, path='/milestones')
 API.add_namespace(STAFF_API, path='/staffs')
+API.add_namespace(OUTCOME_API, path='/outcomes')
