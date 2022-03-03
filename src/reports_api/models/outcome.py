@@ -31,6 +31,7 @@ class Outcome(BaseModel):
 
     milestone = relationship('Milestone', foreign_keys=[milestone_id], lazy='select')
 
+    @classmethod
     def find_by_milestone_id(cls, _milestone_id):
         """Returns collection of outcomes by milestone_id"""
         outcomes = cls.filter_by(milestone_id=_milestone_id).all()
