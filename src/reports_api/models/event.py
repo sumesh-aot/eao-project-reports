@@ -38,8 +38,11 @@ class Event(BaseModel):
 
     work_id = Column(ForeignKey('works.id'), nullable=False)
     milestone_id = Column(ForeignKey('milestones.id'), nullable=False)
+    outcome_id = Column(ForeignKey('outcomes.id'), nullable=True)
+
     work = relationship('Work', foreign_keys=[work_id], lazy='select')
     milestone = relationship('Milestone', foreign_keys=[milestone_id], lazy='select')
+    outcome = relationship('Outcome', foreign_keys=[outcome_id], lazy='select')
 
     def as_dict(self):
         """Return Json representation."""
@@ -56,7 +59,8 @@ class Event(BaseModel):
             'anticipated_end_date': str(self.anticipated_end_date) if self.anticipated_end_date else None,
             'end_date': str(self.end_date) if self.end_date else None,
             'work_id': self.work_id,
-            'milestone': self.milestone.as_dict()
+            'milestone': self.milestone.as_dict(),
+            'outcome': self.outcome.as_dict()
         }
 
     @classmethod
