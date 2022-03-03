@@ -29,6 +29,7 @@ from .issue import Issue
 from .milestone_type import MilestoneType
 from .milestone import Milestone
 from .ministry import Ministry
+from .outcome import Outcome
 from .phase_code import PhaseCode
 from .position import Position
 from .project import Project
