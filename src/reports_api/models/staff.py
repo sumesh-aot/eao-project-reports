@@ -48,3 +48,7 @@ class Staff(db.Model, CodeTable):
     @classmethod
     def find_active_staff_by_position(cls, position_id: int):
         return cls.query.filter_by(position_id=position_id, is_active=True)
+
+    @classmethod
+    def find_all_active_staff(cls):
+        return cls.query.filter_by(is_active=True)

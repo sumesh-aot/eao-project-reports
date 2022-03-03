@@ -13,11 +13,6 @@
 # limitations under the License.
 """Service to manage work form sync with database."""
 
-from flask import current_app
-from collections import defaultdict
-
-from sqlalchemy import column
-
 from reports_api.utils.helpers import find_model_from_table_name
 
 
@@ -66,11 +61,12 @@ class SyncFormDataService:
                 foreign_keys = {}
                 model_name = model_key
                 if '-' in model_key:
-                    *foreign_key_list, model_name = model_key.split('-')
-                    for foreign_key in foreign_key_list:
-                        if foreign_key not in result:
-                            result[foreign_key] = cls._process_model_data(foreign_key, payload[foreign_key])
-                        foreign_keys[f'{foreign_key[:-1]}_id'] = result[foreign_key]['id']
+                    *relations_list, model_name = model_key.split('-')
+                    for relation in relations_list:
+                        if relation not in result:
+                            result[relation] = cls._process_model_data(relation, payload[relation])
+                        # TODO: Proper handling of plural vs singular nouns
+                        foreign_keys[f'{relation[:-1]}_id'] = result[relation]['id']
             if isinstance(dataset, dict):
                 dataset.update(foreign_keys)
             elif isinstance(dataset, list):
