@@ -35,6 +35,7 @@ class Milestone(BaseModel):
     phase = relationship('PhaseCode', foreign_keys=[phase_id], lazy='select')
     milestone_type = relationship('MilestoneType', foreign_keys=[milestone_type_id], lazy='select')
 
+    @classmethod
     def find_by_phase_id(cls, _phase_id):
         """Returns collection of milestone by phaseid"""
         milestones = db.session.query(Milestone).filter_by(phase_id=_phase_id).all()
