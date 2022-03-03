@@ -11,9 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Exposes all of the Services used in the API."""
+"""Model to handle all operations related to Position."""
 
-from .code import CodeService
-from .project import ProjectService
-from .milestone import MilestoneService
-from .staff import StaffService
+from sqlalchemy import Column, Integer, String
+
+from .code_table import CodeTable
+from .db import db
+
+
+class Position(db.Model, CodeTable):
+    """Model class for Postion."""
+
+    __tablename__ = 'positions'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(), nullable=False)
+
+    def as_dict(self):
+        """Return Json representation."""
+        return {
+            'id': self.id,
+            'name': self.name
+        }

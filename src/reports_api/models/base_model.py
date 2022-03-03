@@ -13,6 +13,7 @@
 # limitations under the License.
 """Super class to handle all operations related to base model."""
 
+from flask import current_app
 from .db import db
 
 
@@ -65,3 +66,13 @@ class BaseModel(db.Model):
         """Delete and commit."""
         db.session.delete(self)
         db.session.commit()
+
+    def as_dict(self, recursive=True):
+        mapper = self.__mapper__
+        columns = mapper.columns
+        result = {c: getattr(self, c) for c in dict(columns).keys()}
+        if recursive:
+            for r in mapper.relationships:
+                relationship = r.key
+                result[relationship] = getattr(self, relationship).as_dict()
+        return result
