@@ -28,6 +28,17 @@ class WorkStatus(BaseModel):
     status = Column(String(255), nullable=False)
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, onupdate=func.now())
+    work_id = Column(ForeignKey('works.id'), nullable=False)
+    work = relationship('Work', foreign_keys=[work_id], lazy='select')
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'status': self.status,
+            'created_at': str(self.created_at) if self.created_at else None,
+            'updated_at': str(self.updated_at) if self.updated_at else None,
+            'work_id': self.work_id
+        }
 
     @classmethod
     def find_by_work_id(cls, work_id: int):
