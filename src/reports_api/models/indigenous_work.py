@@ -26,11 +26,11 @@ class IndigenousWork(BaseModel):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     work_id = Column(ForeignKey('works.id'), nullable=False)
-    indigenous_group_id = Column(ForeignKey('indigenous_groups.id'), nullable=False)
+    indigenous_nation_id = Column(ForeignKey('indigenous_nations.id'), nullable=False)
     indigenous_category_id = Column(ForeignKey('indigenous_categories.id'), nullable=False)
 
     work = relationship('Work', foreign_keys=[work_id], lazy='select')
-    indigenous_group = relationship('IndigenousGroup', foreign_keys=[indigenous_group_id], lazy='select')
+    indigenous_nation = relationship('IndigenousNation', foreign_keys=[indigenous_nation_id], lazy='select')
     indigenous_category = relationship('IndigenousCategory', foreign_keys=[indigenous_category_id], lazy='select')
 
     def as_dict(self):
@@ -38,7 +38,7 @@ class IndigenousWork(BaseModel):
         return {
             'id': self.id,
             'work_id': self.work_id,
-            'indigenous_group': self.indigenous_group.as_dict(),
+            'indigenous_nation': self.indigenous_nation.as_dict(),
             'indigenous_category': self.indigenous_category.as_dict()
         }
 

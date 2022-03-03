@@ -38,6 +38,6 @@ from .staff_work_role import StaffWorkRole
 from .work import Work
 from .work_status import WorkStatus
 from .indigenous_category import IndigenousCategory
-from .indigenous_group import IndigenousGroup
+from .indigenous_nation import IndigenousNation
 from .indigenous_work import IndigenousWork
 from .work_phase import WorkPhase

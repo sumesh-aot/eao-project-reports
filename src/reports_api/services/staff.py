@@ -34,9 +34,9 @@ class StaffService:
         return response
 
     @classmethod
-    def find_all(cls):
+    def find_all_active_staff(cls):
         """Find all staffs."""
         response = {'staffs': []}
-        for row in Staff.find_all():
+        for row in Staff.find_all_active_staff():
             response['staffs'].append(row.as_dict())
         return response

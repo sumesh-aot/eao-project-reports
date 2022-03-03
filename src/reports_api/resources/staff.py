@@ -26,14 +26,15 @@ API = Namespace('staffs', description='Staffs')
 
 @cors_preflight('GET')
 @API.route('/<int:position_id>', methods=['GET', 'OPTIONS'])
-class Codes(Resource):
+@API.route('', methods=['GET', 'OPTIONS'])
+class Staffs(Resource):
     """Endpoint resource to return staffs."""
 
     @staticmethod
     @cors.crossdomain(origin='*')
     def get(position_id=None):
-        """Return all codes based on code_type."""
+        """Return all staffs based on position."""
         if position_id:
             return StaffService.find_by_position_id(position_id), HTTPStatus.OK
         else:
-            return StaffService.find_all(), HTTPStatus.OK
+            return StaffService.find_all_active_staff(), HTTPStatus.OK

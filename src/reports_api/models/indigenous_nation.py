@@ -19,10 +19,10 @@ from .code_table import CodeTable
 from .db import db
 
 
-class IndigenousGroup(db.Model, CodeTable):
-    """Model class for IndigenousGroup."""
+class IndigenousNation(db.Model, CodeTable):
+    """Model class for IndigenousNation."""
 
-    __tablename__ = 'indigenous_groups'
+    __tablename__ = 'indigenous_nations'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False)
