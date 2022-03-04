@@ -34,7 +34,7 @@ class Outcome(BaseModel):
     @classmethod
     def find_by_milestone_id(cls, _milestone_id):
         """Returns collection of outcomes by milestone_id"""
-        outcomes = cls.filter_by(milestone_id=_milestone_id).all()
+        outcomes = cls.query.filter_by(milestone_id=_milestone_id).all()
         return outcomes
 
     def as_dict(self):
