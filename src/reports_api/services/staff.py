@@ -40,3 +40,12 @@ class StaffService:
         for row in Staff.find_all_active_staff():
             response['staffs'].append(row.as_dict())
         return response
+
+    @classmethod
+    def find_by_id(cls, id):
+        """Find staff by id."""
+        response = {'staff': None}
+        staff = Staff.find_by_id(id)
+        if staff:
+            response['staff'] = staff.as_dict()
+        return response
