@@ -24,12 +24,12 @@ API = Namespace('milestones', description='MileStones')
 
 
 @cors_preflight('GET')
-@API.route('/<int:phase_id>', methods=['GET', 'OPTIONS'])
+@API.route('/phase/<int:phase_id>', methods=['GET', 'OPTIONS'])
 class Milestones(Resource):
     """Endpoint resource to return milestones which are neither start event nor end event."""
 
     @staticmethod
     @cors.crossdomain(origin='*')
     def get(phase_id):
-        """Return all codes based on code_type."""
+        """Return all milestones based on phase_id."""
         return MilestoneService.find_non_decision_by_phase_id(phase_id), HTTPStatus.OK
