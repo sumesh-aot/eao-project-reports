@@ -42,6 +42,6 @@ class Outcome(BaseModel):
         return {
             'id': self.id,
             'name': self.name,
-            'milestone': self.milestone.as_dict(),
+            'milestone_id': self.milestone_id,
             'terminates_work': self.terminates_work
         }

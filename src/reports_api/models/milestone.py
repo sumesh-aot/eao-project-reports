@@ -35,6 +35,10 @@ class Milestone(BaseModel):
     phase = relationship('PhaseCode', foreign_keys=[phase_id], lazy='select')
     milestone_type = relationship('MilestoneType', foreign_keys=[milestone_type_id], lazy='select')
 
+    outcomes = relationship("Outcome",
+                            primaryjoin="Milestone.id==Outcome.milestone_id",
+                            back_populates="milestone")
+
     @classmethod
     def find_by_phase_id(cls, _phase_id):
         """Returns collection of milestone by phaseid"""
@@ -54,5 +58,6 @@ class Milestone(BaseModel):
             'phase_id': self.phase_id,
             'milestone_type': self.milestone_type.as_dict(),
             'is_start_event': self.is_start_event,
-            'is_end_event': self.is_end_event
+            'is_end_event': self.is_end_event,
+            'outcomes': [x.as_dict() for x in self.outcomes]
         }
