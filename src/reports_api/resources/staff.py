@@ -50,7 +50,7 @@ class Staff(Resource):
         return StaffService.find_by_id(id), HTTPStatus.OK
 
 
-@API.route('/position/<int:position_id>', methods=['GET', 'OPTIONS'])
+@API.route('/positions/<int:position_id>', methods=['GET', 'OPTIONS'])
 class Staff(Resource):
     """Endpoint resource to return staffs based on position_id."""
     @staticmethod

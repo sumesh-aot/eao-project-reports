@@ -24,7 +24,7 @@ API = Namespace('milestones', description='MileStones')
 
 
 @cors_preflight('GET')
-@API.route('/phase/<int:phase_id>', methods=['GET', 'OPTIONS'])
+@API.route('/phases/<int:phase_id>', methods=['GET', 'OPTIONS'])
 class Milestones(Resource):
     """Endpoint resource to return milestones which are neither start event nor end event."""
 
