@@ -20,12 +20,18 @@ API_BASE_URL = '/api/v1/'
 
 
 def test_get_staff_by_position(client):
-    url = urljoin(API_BASE_URL, 'staffs/3')
+    url = urljoin(API_BASE_URL, 'staffs/position/3')
     result = client.get(url)
     assert result.status_code == HTTPStatus.OK
 
 
 def test_get_all_active_staff(client):
     url = urljoin(API_BASE_URL, 'staffs')
+    result = client.get(url)
+    assert result.status_code == HTTPStatus.OK
+
+
+def test_get_staff_details(client):
+    url = urljoin(API_BASE_URL, 'staffs/1')
     result = client.get(url)
     assert result.status_code == HTTPStatus.OK

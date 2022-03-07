@@ -20,7 +20,7 @@ API_BASE_URL = '/api/v1/'
 
 
 def test_get_phases(client):
-    url = urljoin(API_BASE_URL, 'milestones/11')
+    url = urljoin(API_BASE_URL, 'milestones/phase/11')
     result = client.get(url)
     assert result.status_code == HTTPStatus.OK
     decision_events = list(filter(lambda x: x['is_end_event'] or x['is_start_event'], result.json))
