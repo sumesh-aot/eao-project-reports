@@ -72,7 +72,7 @@ class SyncFormDataService:
             if isinstance(dataset, dict):
                 dataset.update(foreign_keys)
             elif isinstance(dataset, list):
-                dataset = list(map(lambda x: x.update(foreign_keys), dataset))
+                list(map(lambda x: x.update(foreign_keys), dataset))
             obj = cls._process_model_data(model_name, dataset)
             if obj:
                 result[model_key] = obj
