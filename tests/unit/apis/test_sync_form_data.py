@@ -15,20 +15,71 @@
 
 from http import HTTPStatus
 
+
 API_URL = '/api/v1/sync-form-data'
 
 
-def test_sync_form_data(client):
+def test_sync_form_data_create(client, new_project, new_staff):
     payload = {
-        "projects": {
-            "name": "Test Again",
-            "description": "Testing the create project endpoint again",
-            "location": "Victoria, BC",
-            "sub_sector_id": 1,
-            "proponent_id": 1,
-            "region_id_env": 1,
-            "region_id_flnro": 10
+        "works": {
+            "title": "Test works",
+            "short_description": "Testing sync form data api",
+            "project_id": new_project.id,
+            "ministry_id": 1,
+            "ea_act_id": 3,
+            "work_type_id": 6,
+            "federal_involvement_id": 1,
+            "work_lead_id": new_staff.id,
+            "responsible_epd_id": new_staff.id,
+            "eao_team_id": 1
+        },
+        "works-work_statuses": {
+            "status": "Testing foreign key entry creation"
         }
     }
     result = client.post(API_URL, json=payload)
+    assert result.status_code == HTTPStatus.OK
+
+
+def test_sync_form_data_update(client, new_project, new_staff):
+
+    new_payload = {
+        "works": {
+            "title": "Test works",
+            "short_description": "Testing sync form data api",
+            "project_id": new_project.id,
+            "ministry_id": 1,
+            "ea_act_id": 3,
+            "work_type_id": 6,
+            "federal_involvement_id": 1,
+            "work_lead_id": new_staff.id,
+            "responsible_epd_id": new_staff.id,
+            "eao_team_id": 1
+        },
+        "works-work_statuses": {
+            "status": "Testing foreign key entry creation"
+        }
+    }
+    new = client.post(API_URL, json=new_payload).json
+
+    update_payload = {
+        "works": {
+            "id": new['works']['id'],
+            "title": "Test works edit",
+            "short_description": "Testing sync form data api update",
+            "project_id": new_project.id,
+            "ministry_id": 1,
+            "ea_act_id": 3,
+            "work_type_id": 6,
+            "federal_involvement_id": 1,
+            "work_lead_id": new_staff.id,
+            "responsible_epd_id": new_staff.id,
+            "eao_team_id": 1
+        },
+        "works-work_statuses": {
+            "status": "Testing foreign key entry and updated_at updation ",
+            "id": new['works-work_statuses']['id']
+        }
+    }
+    result = client.post(API_URL, json=update_payload)
     assert result.status_code == HTTPStatus.OK
