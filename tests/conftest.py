@@ -28,6 +28,7 @@ from reports_api import create_app
 from reports_api import jwt as _jwt
 from reports_api import setup_jwt_manager
 from reports_api.models import db as _db
+from reports_api.models import Project, Staff
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -237,3 +238,32 @@ def docker_compose_files(pytestconfig):
         os.path.join(str(pytestconfig.rootdir), 'tests/docker', 'docker-compose.yml')
     ]
 
+
+@pytest.fixture(scope='function')
+def new_project():
+    project = Project(**{
+        "name": "New Project",
+        "description": "Testing the create project endpoint",
+        "location": "Victoria, BC",
+        "sub_sector_id": 1,
+        "proponent_id": 1,
+        "region_id_env": 1,
+        "region_id_flnro": 1
+    })
+    project = project.save()
+    return project
+
+
+@pytest.fixture(scope='function')
+def new_staff():
+    staff = Staff(**{
+        "name": "Andrew",
+        "phone": "1111111111",
+        "email": "andrew@test.com",
+        "position_id": 3
+    })
+    # staff = staff.save()
+    _db.session.add(staff)
+    _db.session.commit()
+
+    return staff

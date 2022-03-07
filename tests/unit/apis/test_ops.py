@@ -12,16 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO:
 
 from http import HTTPStatus
 from urllib.parse import urljoin
 
-API_BASE_URL = '/api/v1/'
 
-
-def test_get_phases(client):
-    url = urljoin(API_BASE_URL, 'milestones/phases/11')
+def test_get_healthz(client):
+    url = '/ops/healthz'
     result = client.get(url)
     assert result.status_code == HTTPStatus.OK
-    decision_events = list(filter(lambda x: x['is_end_event'] or x['is_start_event'], result.json))
-    assert len(decision_events) == 0
+
+
+def test_get_readyz(client):
+    url = '/ops/readyz'
+    result = client.get(url)
+    assert result.status_code == HTTPStatus.OK

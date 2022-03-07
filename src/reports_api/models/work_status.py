@@ -22,7 +22,7 @@ from .base_model import BaseModel
 class WorkStatus(BaseModel):
     """Model class for WorkStatus."""
 
-    __tablename__ = 'work_status'
+    __tablename__ = 'work_statuses'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     status = Column(String(255), nullable=False)

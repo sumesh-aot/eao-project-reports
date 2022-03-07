@@ -14,6 +14,7 @@
 """Service to manage work form sync with database."""
 
 from reports_api.utils.helpers import find_model_from_table_name
+from inflector import Inflector, English
 
 
 class SyncFormDataService:
@@ -55,6 +56,7 @@ class SyncFormDataService:
     @classmethod
     def sync_data(cls, payload: dict):
         result = {}
+        inflector = Inflector(English)
 
         for model_key, dataset in payload.items():
             if model_key not in result:
@@ -65,8 +67,8 @@ class SyncFormDataService:
                     for relation in relations_list:
                         if relation not in result:
                             result[relation] = cls._process_model_data(relation, payload[relation])
-                        # TODO: Proper handling of plural vs singular nouns
-                        foreign_keys[f'{relation[:-1]}_id'] = result[relation]['id']
+                        relation_key = inflector.singularize(relation)
+                        foreign_keys[f'{relation_key}_id'] = result[relation]['id']
             if isinstance(dataset, dict):
                 dataset.update(foreign_keys)
             elif isinstance(dataset, list):
