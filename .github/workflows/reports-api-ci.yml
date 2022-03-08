@@ -79,6 +79,12 @@ jobs:
         id: test
         run: |
           make test
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   build:
     needs: PyTest
     runs-on: ubuntu-20.04
