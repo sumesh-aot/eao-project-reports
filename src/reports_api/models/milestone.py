@@ -13,9 +13,9 @@
 # limitations under the License.
 """Model to handle all operations related to Milestone."""
 
-from flask import current_app
-from sqlalchemy import Boolean, Column, Integer, String, ForeignKey
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
 from .base_model import BaseModel
 from .db import db
 
@@ -50,7 +50,7 @@ class Milestone(BaseModel):
         milestones = cls.query.filter_by(phase_id=_phase_id, is_start_event=False, is_end_event=False).all()
         return milestones
 
-    def as_dict(self):
+    def as_dict(self):  # pylint:disable=arguments-differ
         """Returns JSON representation"""
         return {
             'id': self.id,

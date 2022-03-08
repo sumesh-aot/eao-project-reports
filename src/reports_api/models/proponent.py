@@ -13,8 +13,7 @@
 # limitations under the License.
 """Model to handle all operations related to Proponent."""
 
-from xmlrpc.client import Boolean
-from sqlalchemy import Column, Integer, BOOLEAN
+from sqlalchemy import BOOLEAN, Column, Integer
 
 from .code_table import CodeTable
 from .db import db

@@ -17,6 +17,7 @@
 from http import HTTPStatus
 from urllib.parse import urljoin
 
+
 API_BASE_URL = '/api/v1/'
 
 

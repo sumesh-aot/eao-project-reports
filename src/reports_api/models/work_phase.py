@@ -13,7 +13,7 @@
 # limitations under the License.
 """Model to handle all operations related to WorkPhase."""
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, Boolean, ForeignKey, func
+from sqlalchemy import Column, DateTime, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from .base_model import BaseModel
@@ -34,7 +34,7 @@ class WorkPhase(BaseModel):
     work = relationship('Work', foreign_keys=[work_id], lazy='select')
     phase = relationship('PhaseCode', foreign_keys=[phase_id], lazy='select')
 
-    def as_dict(self):
+    def as_dict(self):  # pylint:disable=arguments-differ
         return {
             'id': self.id,
             'start_date': str(self.start_date),

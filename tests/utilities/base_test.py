@@ -18,9 +18,11 @@ Test-Suite to ensure that the /reports endpoint is working as expected.
 """
 
 from datetime import datetime
-from faker import Faker
 from random import randrange
 from typing import Dict, List, Tuple
+
+from faker import Faker
+
 
 token_header = {
     'alg': 'RS256',
