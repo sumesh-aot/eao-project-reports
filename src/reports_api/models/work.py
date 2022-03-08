@@ -64,3 +64,8 @@ class Work(BaseModel):
     responsible_epd = relationship('Staff', foreign_keys=[responsible_epd_id], lazy='select')
     work_lead = relationship('Staff', foreign_keys=[work_lead_id], lazy='select')
     work_type = relationship('WorkType', foreign_keys=[work_type_id], lazy='select')
+
+    def as_dict(self):
+        result = super().as_dict()
+        result['work_status_stoplight'] = self.work_status_stoplight.value if self.work_status_stoplight else None
+        return result
