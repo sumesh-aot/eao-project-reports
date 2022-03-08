@@ -47,7 +47,7 @@ jobs:
     needs: setup-job
     env:
       FLASK_ENV: "testing"
-      DATABASE_URL_TEST: "postgresql://postgres:postgres@localhost:54333/postgres"
+      DATABASE_TEST_URL: "postgresql://postgres:postgres@localhost:54333/postgres"
 
     runs-on: ubuntu-20.04
 
