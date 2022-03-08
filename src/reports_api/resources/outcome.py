@@ -24,7 +24,7 @@ API = Namespace('outcomes', description='Outcomes')
 
 
 @cors_preflight('GET')
-@API.route('/<int:milestone_id>', methods=['GET', 'OPTIONS'])
+@API.route('/milestones/<int:milestone_id>', methods=['GET', 'OPTIONS'])
 class Outcomes(Resource):
     """Endpoint resource to return outcomes for a milestone."""
 
