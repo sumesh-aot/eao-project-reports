@@ -67,5 +67,5 @@ class Work(BaseModel):
 
     def as_dict(self):
         result = super().as_dict()
-        result['work_status_stoplight'] = self.work_status_stoplight.value
+        result['work_status_stoplight'] = self.work_status_stoplight.value if self.work_status_stoplight else None
         return result
