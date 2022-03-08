@@ -13,6 +13,7 @@
 # limitations under the License.
 """Service to manage work form sync with database."""
 
+from flask import current_app
 from reports_api.utils.helpers import find_model_from_table_name
 from inflector import Inflector, English
 
@@ -22,6 +23,7 @@ class SyncFormDataService:
 
     @classmethod
     def _update_or_create(cls, model_class, data: dict):
+        current_app.logger.debug(f"_update_or_create with model {model_class} and data {data}")
         # Get the list of column names for the model
         mapper = model_class.__mapper__
         columns = dict(mapper.columns).keys()
@@ -72,7 +74,7 @@ class SyncFormDataService:
             if isinstance(dataset, dict):
                 dataset.update(foreign_keys)
             elif isinstance(dataset, list):
-                dataset = list(map(lambda x: x.update(foreign_keys), dataset))
+                dataset = [{**x, **foreign_keys} for x in dataset]
             obj = cls._process_model_data(model_name, dataset)
             if obj:
                 result[model_key] = obj

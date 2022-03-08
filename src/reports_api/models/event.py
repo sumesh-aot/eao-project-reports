@@ -25,7 +25,7 @@ class Event(BaseModel):
     __tablename__ = 'events'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(255), nullable=False)
+    title = Column(String(255), nullable=False)
     short_description = Column(String(255), nullable=False)
     long_description = Column(Text, nullable=True)
     is_active = Column(Boolean(), default=False)
@@ -38,7 +38,7 @@ class Event(BaseModel):
 
     work_id = Column(ForeignKey('works.id'), nullable=False)
     milestone_id = Column(ForeignKey('milestones.id'), nullable=False)
-    outcome_id = Column(ForeignKey('outcomes.id'), nullable=True)
+    outcome_id = Column(ForeignKey('outcomes.id'), nullable=True, default=None)
 
     work = relationship('Work', foreign_keys=[work_id], lazy='select')
     milestone = relationship('Milestone', foreign_keys=[milestone_id], lazy='select')
@@ -48,7 +48,7 @@ class Event(BaseModel):
         """Return Json representation."""
         return {
             'id': self.id,
-            'name': self.name,
+            'title': self.title,
             'short_description': self.short_description,
             'long_description': self.long_description,
             'is_active': self.is_active,
@@ -59,8 +59,8 @@ class Event(BaseModel):
             'anticipated_end_date': str(self.anticipated_end_date) if self.anticipated_end_date else None,
             'end_date': str(self.end_date) if self.end_date else None,
             'work_id': self.work_id,
-            'milestone': self.milestone.as_dict(),
-            'outcome': self.outcome.as_dict()
+            'milestone': self.milestone.as_dict() if self.milestone else None,
+            'outcome': self.outcome.as_dict() if self.outcome else None
         }
 
     @classmethod
