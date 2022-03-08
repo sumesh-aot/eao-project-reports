@@ -26,7 +26,7 @@ class Event(BaseModel):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(255), nullable=False)
-    short_description = Column(String(255), nullable=False)
+    short_description = Column(String(255), nullable=True)
     long_description = Column(Text, nullable=True)
     is_active = Column(Boolean(), default=False)
     is_complete = Column(Boolean(), default=False)
