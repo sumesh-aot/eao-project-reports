@@ -1,7 +1,6 @@
 name: Report API CI
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - main
@@ -14,8 +13,6 @@ defaults:
 jobs:
   setup-job:
     runs-on: ubuntu-20.04
-
-    if: github.repository == 'bcgov/eao-project-reports'
 
     steps:
       - uses: actions/checkout@v2
