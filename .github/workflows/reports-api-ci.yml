@@ -20,6 +20,11 @@ jobs:
   linting:
     needs: setup-job
     runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        python-version: [3.8]
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -28,15 +33,18 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install -r requirements/dev.txt
-      - name: Pylint
+          sudo apt update
+          sudo apt install libsasl2-dev libldap2-dev libssl-dev --yes
+          make setup
+      - name: Lint with pylint
         id: pylint
         run: |
-          make lint
-       - name: Flake8
-         id: flake8
-         run: |
-           make flake8
+          make pylint
+      - name: Lint with flake8
+        id: flake8
+        run: |
+          make flake8
+
 
   PyTest:
     needs: setup-job
