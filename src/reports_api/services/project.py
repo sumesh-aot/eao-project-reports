@@ -22,6 +22,7 @@ class ProjectService:
 
     @classmethod
     def find(cls, project_id):
+        """Find by project id."""
         return Project.find_by_id(project_id).as_dict()
 
     @classmethod
@@ -34,6 +35,7 @@ class ProjectService:
 
     @classmethod
     def create_project(cls, payload: dict):
+        """Create a new project."""
         project = Project(**payload)
         current_app.logger.info(f'Project obj {dir(project)}')
         project.save()
@@ -41,12 +43,14 @@ class ProjectService:
 
     @classmethod
     def update_project(cls, project_id: int, payload: dict):
+        """Update existing project."""
         project = Project.find_by_id(project_id)
         project = project.update(payload)
         return project
 
     @classmethod
     def delete_project(cls, project_id: int):
+        """Delete project by id."""
         project = Project.find_by_id(project_id)
         project.delete()
         return True

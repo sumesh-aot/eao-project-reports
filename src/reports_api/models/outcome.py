@@ -21,6 +21,7 @@ from .base_model import BaseModel
 
 class Outcome(BaseModel):
     """Model class for Outcome."""
+
     __tablename__ = 'outcomes'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

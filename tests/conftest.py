@@ -178,6 +178,7 @@ def docker_compose_files(pytestconfig):
 
 @pytest.fixture(scope='function')
 def new_project():
+    """Create new project."""
     project = Project(**{
         "name": "New Project",
         "description": "Testing the create project endpoint",
@@ -193,6 +194,7 @@ def new_project():
 
 @pytest.fixture(scope='function')
 def new_staff():
+    """Create new staff."""
     staff = Staff(**{
         "name": "Andrew",
         "phone": "1111111111",

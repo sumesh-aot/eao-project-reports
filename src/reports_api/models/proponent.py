@@ -28,6 +28,7 @@ class Proponent(db.Model, CodeTable):
     is_active = Column(BOOLEAN(), default=False)
 
     def as_dict(self):
+        """Return JSON Representation."""
         result = CodeTable.as_dict(self)
         result['is_active'] = self.is_active
         return result

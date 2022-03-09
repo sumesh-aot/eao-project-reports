@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO:
-
+"""Test suite for meta endpoints."""
 from http import HTTPStatus
 from urllib.parse import urljoin
 
@@ -22,6 +21,7 @@ API_BASE_URL = '/api/v1/'
 
 
 def test_get_info(client):
+    """Test get meta info."""
     url = urljoin(API_BASE_URL, 'meta/info')
     result = client.get(url)
     assert result.status_code == HTTPStatus.OK

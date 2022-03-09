@@ -38,4 +38,5 @@ class IndigenousNation(db.Model, CodeTable):
 
     @classmethod
     def find_all_active_groups(cls):
+        """Find all active groups."""
         return cls.query.filter_by(is_active=True).all()

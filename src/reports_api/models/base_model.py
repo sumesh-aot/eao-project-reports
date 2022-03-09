@@ -67,6 +67,7 @@ class BaseModel(db.Model):
         db.session.commit()
 
     def as_dict(self, recursive=True):
+        """Return JSON Representation."""
         mapper = self.__mapper__
         columns = mapper.columns
         result = {c: getattr(self, c) for c in dict(columns).keys()}

@@ -22,6 +22,7 @@ from .db import db
 
 class Milestone(BaseModel):
     """Model class for Milestone."""
+
     __tablename__ = 'milestones'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -47,6 +48,7 @@ class Milestone(BaseModel):
 
     @classmethod
     def find_non_decision_by_phase_id(cls, _phase_id: int):
+        """Find non decision by phase id."""
         milestones = cls.query.filter_by(phase_id=_phase_id, is_start_event=False, is_end_event=False).all()
         return milestones
 

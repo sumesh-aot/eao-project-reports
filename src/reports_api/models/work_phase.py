@@ -35,6 +35,7 @@ class WorkPhase(BaseModel):
     phase = relationship('PhaseCode', foreign_keys=[phase_id], lazy='select')
 
     def as_dict(self):  # pylint:disable=arguments-differ
+        """Return JSON Representation."""
         return {
             'id': self.id,
             'start_date': str(self.start_date),
@@ -45,4 +46,5 @@ class WorkPhase(BaseModel):
 
     @classmethod
     def find_by_work_id(cls, work_id: int):
+        """Find by work id."""
         return cls.query.filter_by(work_id=work_id)

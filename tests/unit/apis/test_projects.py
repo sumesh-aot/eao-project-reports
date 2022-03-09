@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+"""Test suite for projects."""
 
 from http import HTTPStatus
 from urllib.parse import urljoin
@@ -21,6 +21,7 @@ API_BASE_URL = '/api/v1/'
 
 
 def test_create_project(client):
+    """Test create new project."""
     payload = {
         "name": "New Project",
         "description": "Testing the create project endpoint",
@@ -37,6 +38,7 @@ def test_create_project(client):
 
 
 def test_get_projects(client):
+    """Test get projects."""
     url = urljoin(API_BASE_URL, 'projects')
     response = client.get(url)
     assert response.status_code == HTTPStatus.OK
@@ -44,6 +46,7 @@ def test_get_projects(client):
 
 
 def test_update_project(client):
+    """Test update project."""
     payload = {
         "name": "New Project",
         "description": "Testing the create project endpoint",
@@ -66,6 +69,7 @@ def test_update_project(client):
 
 
 def test_delete_project(client):
+    """Test delete project."""
     payload = {
         "name": "New Project",
         "description": "Testing the create project endpoint",
@@ -88,6 +92,7 @@ def test_delete_project(client):
 
 
 def test_project_detail(client):
+    """Test project details."""
     payload = {
         "name": "New Project",
         "description": "Testing the create project endpoint",

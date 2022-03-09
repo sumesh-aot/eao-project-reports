@@ -21,6 +21,7 @@ from .db import db
 
 class MilestoneType(db.Model, CodeTable):
     """Model class for Milestone Type."""
+
     __tablename__ = 'milestone_types'
     id = Column(Integer, primary_key=True, autoincrement=True)  # TODO check how it can be inherited from parent
     name = Column(String, nullable=False)

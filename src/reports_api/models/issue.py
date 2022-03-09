@@ -59,4 +59,5 @@ class Issue(BaseModel):
 
     @classmethod
     def find_by_work_id(cls, work_id: int):
+        """Find by work id."""
         return cls.query.filter_by(work_id=work_id)
