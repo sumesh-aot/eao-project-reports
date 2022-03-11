@@ -19,7 +19,7 @@ env:
 #  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
 
 jobs:
-  build-and-push-image:
+  build-and-push-image-to-ghcr:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -69,7 +69,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           file: ${{ matrix.dockerfile }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: eao-project-reports:latest,eao-project-reports:dev
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
