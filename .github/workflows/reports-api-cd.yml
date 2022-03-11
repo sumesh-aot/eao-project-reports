@@ -69,7 +69,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           file: ${{ matrix.dockerfile }}
-          tags: eao-project-reports:latest,eao-project-reports:dev
+          tags: sumesh-aot/eao-project-reports:latest;sumesh-aot/eao-project-reports:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
